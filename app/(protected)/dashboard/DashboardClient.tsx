@@ -50,7 +50,7 @@ export default function DashboardClient({
     const continents = new Set<string>();
     appointmentsForContinent.forEach((a) => continents.add(a.continent ?? 'Unknown'));
     const continentList = Array.from(continents).sort();
-    const byMonth: Record<string, Record<string, number>> = {};
+    const byMonth: Record<string, Record<string, string | number>> = {};
     monthOrder.forEach((key) => {
       byMonth[key] = { month: formatMonth(key + '-01') };
       continentList.forEach((c) => { byMonth[key][c] = 0; });
