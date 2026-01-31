@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
       getAll() {
         return request.cookies.getAll();
       },
-      setAll(cookiesToSet) {
+      setAll(cookiesToSet: { name: string; value: string; options?: { path?: string } }[]) {
         cookiesToSet.forEach(({ name, value, options }) =>
           response.cookies.set(name, value, options)
         );
@@ -23,11 +23,12 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (url.pathname.startsWith('/login') && user) {
+  if ((url.pathname.startsWith('/login') || url.pathname.startsWith('/signup')) && user) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
-  if (url.pathname !== '/login' && !url.pathname.startsWith('/_next') && !url.pathname.startsWith('/favicon')) {
-    if (!user && url.pathname !== '/') {
+  const publicPaths = ['/', '/login', '/signup'];
+  if (!url.pathname.startsWith('/_next') && !url.pathname.startsWith('/favicon')) {
+    if (!user && !publicPaths.includes(url.pathname)) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
   }

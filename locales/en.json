@@ -6,6 +6,7 @@
     "patients": "Patients",
     "appointments": "Appointments",
     "reports": "Reports",
+    "reportsByClinic": "Reports by clinic",
     "logout": "Log out"
   },
   "common": {
@@ -20,11 +21,23 @@
   },
   "auth": {
     "login": "Log in",
+    "signup": "Sign up",
     "email": "Email",
     "password": "Password",
+    "confirmPassword": "Confirm password",
     "signIn": "Sign in",
+    "signUp": "Create account",
     "signOut": "Sign out",
-    "error": "Invalid email or password"
+    "error": "Invalid email or password",
+    "signUpError": "Could not create account. Try a different email or a longer password.",
+    "alreadyHaveAccount": "Already have an account? Log in",
+    "noAccount": "Don't have an account? Sign up",
+    "passwordMismatch": "Passwords do not match.",
+    "emailAlreadyRegistered": "This email is already registered. Log in instead.",
+    "networkError": "Network error. Check that .env.local has NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY from your Supabase project (Project Settings → API), and that the project is not paused.",
+    "invalidApiKey": "Invalid API key. In Supabase: Project Settings → API, copy the anon (public) key (not the service_role key). In .env.local set NEXT_PUBLIC_SUPABASE_ANON_KEY to that value with no extra spaces, quotes, or line breaks. Restart the dev server after changing .env.local.",
+    "confirmEmailFirst": "Invalid email or password. If you just signed up, confirm your email first (check your inbox), or in Supabase turn off \"Confirm email\" under Authentication → Providers → Email.",
+    "signupSuccess": "Account created. Check your email to confirm, then sign in below."
   },
   "clinics": {
     "title": "Clinics",
@@ -82,17 +95,39 @@
     "appointmentsThisMonth": "Appointments this month",
     "totalPatients": "Total patients",
     "byStatus": "By status",
-    "byDisease": "By disease"
+    "byDisease": "By disease",
+    "byContinentByMonth": "Appointments by continent by month"
   },
   "reports": {
     "title": "Reports",
     "byDisease": "By disease",
+    "byDiseaseByMonth": "By disease by month",
     "byGeography": "By geography",
+    "byContinentByMonth": "By geography (continent) by month",
+    "byCountryByMonth": "By country by month",
+    "other": "Other",
     "byAge": "By age",
     "byTemperature": "By temperature",
     "byVirality": "By virality",
     "dateRange": "Date range",
     "exportCsv": "Export CSV"
+  },
+  "reportsByClinic": {
+    "title": "Reports by clinic",
+    "selectClinic": "Select clinic",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "applyFilters": "Apply",
+    "dashboard": "Dashboard",
+    "dailyReports": "Daily reports",
+    "totalInRange": "Total appointments in range",
+    "byStatus": "By status",
+    "byDisease": "By disease",
+    "noClinicSelected": "Select a clinic and date range to view reports.",
+    "date": "Date",
+    "time": "Time",
+    "disease": "Disease",
+    "status": "Status"
   },
   "settings": {
     "title": "Settings",

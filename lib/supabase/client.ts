@@ -1,8 +1,16 @@
 import { createBrowserClient } from '@supabase/ssr';
 
+const PLACEHOLDER_URL = 'https://placeholder.supabase.co';
+const PLACEHOLDER_KEY = 'placeholder-key';
+
 export function createClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY');
+  if (!url || !key) {
+    throw new Error('Missing Supabase config. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local (see .env.example).');
+  }
+  if (url === PLACEHOLDER_URL || key === PLACEHOLDER_KEY) {
+    throw new Error('Supabase is not configured. Copy .env.example to .env.local and set your real Supabase URL and anon key from Project Settings → API.');
+  }
   return createBrowserClient(url, key);
 }

@@ -25,6 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { href: '/patients', label: t('nav.patients') },
     { href: '/appointments', label: t('nav.appointments') },
     { href: '/reports', label: t('nav.reports') },
+    { href: '/reports-by-clinic', label: t('nav.reportsByClinic') },
   ];
 
   return (

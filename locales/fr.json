@@ -6,6 +6,7 @@
     "patients": "Patients",
     "appointments": "Rendez-vous",
     "reports": "Rapports",
+    "reportsByClinic": "Rapports par clinique",
     "logout": "Déconnexion"
   },
   "common": {
@@ -20,11 +21,23 @@
   },
   "auth": {
     "login": "Connexion",
+    "signup": "Inscription",
     "email": "E-mail",
     "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
     "signIn": "Se connecter",
+    "signUp": "Créer un compte",
     "signOut": "Déconnexion",
-    "error": "E-mail ou mot de passe incorrect"
+    "error": "E-mail ou mot de passe incorrect",
+    "signUpError": "Impossible de créer le compte. Essayez un autre e-mail ou un mot de passe plus long.",
+    "alreadyHaveAccount": "Vous avez déjà un compte ? Se connecter",
+    "noAccount": "Pas encore de compte ? S'inscrire",
+    "passwordMismatch": "Les mots de passe ne correspondent pas.",
+    "emailAlreadyRegistered": "Cet e-mail est déjà enregistré. Connectez-vous.",
+    "networkError": "Erreur réseau. Vérifiez que .env.local contient NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY (Supabase → Paramètres → API) et que le projet n’est pas en pause.",
+    "invalidApiKey": "Clé API invalide. Dans Supabase : Paramètres du projet → API, copiez la clé anon (publique), pas la clé service_role. Dans .env.local, définissez NEXT_PUBLIC_SUPABASE_ANON_KEY avec cette valeur, sans espaces ni guillemets. Redémarrez le serveur après modification.",
+    "confirmEmailFirst": "E-mail ou mot de passe incorrect. Si vous venez de vous inscrire, confirmez d'abord votre e-mail (vérifiez votre boîte de réception), ou dans Supabase désactivez « Confirmer l'e-mail » sous Authentication → Providers → Email.",
+    "signupSuccess": "Compte créé. Consultez votre e-mail pour confirmer, puis connectez-vous ci-dessous."
   },
   "clinics": {
     "title": "Cliniques",
@@ -82,17 +95,39 @@
     "appointmentsThisMonth": "Rendez-vous ce mois",
     "totalPatients": "Total patients",
     "byStatus": "Par statut",
-    "byDisease": "Par maladie"
+    "byDisease": "Par maladie",
+    "byContinentByMonth": "Rendez-vous par continent par mois"
   },
   "reports": {
     "title": "Rapports",
     "byDisease": "Par maladie",
+    "byDiseaseByMonth": "Par maladie par mois",
     "byGeography": "Par géographie",
+    "byContinentByMonth": "Par géographie (continent) par mois",
+    "byCountryByMonth": "Par pays par mois",
+    "other": "Autre",
     "byAge": "Par âge",
     "byTemperature": "Par température",
     "byVirality": "Par contagion",
     "dateRange": "Période",
     "exportCsv": "Exporter CSV"
+  },
+  "reportsByClinic": {
+    "title": "Rapports par clinique",
+    "selectClinic": "Choisir une clinique",
+    "startDate": "Date de début",
+    "endDate": "Date de fin",
+    "applyFilters": "Appliquer",
+    "dashboard": "Tableau de bord",
+    "dailyReports": "Rapports quotidiens",
+    "totalInRange": "Total des rendez-vous sur la période",
+    "byStatus": "Par statut",
+    "byDisease": "Par maladie",
+    "noClinicSelected": "Choisissez une clinique et une période pour afficher les rapports.",
+    "date": "Date",
+    "time": "Heure",
+    "disease": "Maladie",
+    "status": "Statut"
   },
   "settings": {
     "title": "Paramètres",

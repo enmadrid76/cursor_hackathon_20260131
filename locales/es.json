@@ -6,6 +6,7 @@
     "patients": "Pacientes",
     "appointments": "Citas",
     "reports": "Informes",
+    "reportsByClinic": "Informes por clínica",
     "logout": "Cerrar sesión"
   },
   "common": {
@@ -20,11 +21,23 @@
   },
   "auth": {
     "login": "Iniciar sesión",
+    "signup": "Registrarse",
     "email": "Correo",
     "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
     "signIn": "Entrar",
+    "signUp": "Crear cuenta",
     "signOut": "Salir",
-    "error": "Correo o contraseña incorrectos"
+    "error": "Correo o contraseña incorrectos",
+    "signUpError": "No se pudo crear la cuenta. Pruebe otro correo o una contraseña más larga.",
+    "alreadyHaveAccount": "¿Ya tienes cuenta? Entrar",
+    "noAccount": "¿No tienes cuenta? Registrarse",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "emailAlreadyRegistered": "Este correo ya está registrado. Inicia sesión.",
+    "networkError": "Error de red. Comprueba que .env.local tenga NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY de tu proyecto Supabase (Configuración → API) y que el proyecto no esté pausado.",
+    "invalidApiKey": "Clave API inválida. En Supabase: Configuración del proyecto → API, copia la clave anon (pública), no la service_role. En .env.local asigna NEXT_PUBLIC_SUPABASE_ANON_KEY a ese valor sin espacios ni comillas. Reinicia el servidor tras cambiar .env.local.",
+    "confirmEmailFirst": "Correo o contraseña incorrectos. Si acabas de registrarte, confirma antes tu correo (revisa tu bandeja de entrada) o en Supabase desactiva \"Confirmar correo\" en Authentication → Providers → Email.",
+    "signupSuccess": "Cuenta creada. Revisa tu correo para confirmar y luego inicia sesión abajo."
   },
   "clinics": {
     "title": "Clínicas",
@@ -82,17 +95,39 @@
     "appointmentsThisMonth": "Citas este mes",
     "totalPatients": "Total pacientes",
     "byStatus": "Por estado",
-    "byDisease": "Por enfermedad"
+    "byDisease": "Por enfermedad",
+    "byContinentByMonth": "Citas por continente por mes"
   },
   "reports": {
     "title": "Informes",
     "byDisease": "Por enfermedad",
+    "byDiseaseByMonth": "Por enfermedad por mes",
     "byGeography": "Por geografía",
+    "byContinentByMonth": "Por geografía (continente) por mes",
+    "byCountryByMonth": "Por país por mes",
+    "other": "Otros",
     "byAge": "Por edad",
     "byTemperature": "Por temperatura",
     "byVirality": "Por contagio",
     "dateRange": "Período",
     "exportCsv": "Exportar CSV"
+  },
+  "reportsByClinic": {
+    "title": "Informes por clínica",
+    "selectClinic": "Seleccionar clínica",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de fin",
+    "applyFilters": "Aplicar",
+    "dashboard": "Panel",
+    "dailyReports": "Informes diarios",
+    "totalInRange": "Total de citas en el período",
+    "byStatus": "Por estado",
+    "byDisease": "Por enfermedad",
+    "noClinicSelected": "Seleccione una clínica y un período para ver los informes.",
+    "date": "Fecha",
+    "time": "Hora",
+    "disease": "Enfermedad",
+    "status": "Estado"
   },
   "settings": {
     "title": "Ajustes",

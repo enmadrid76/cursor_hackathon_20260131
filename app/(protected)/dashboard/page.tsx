@@ -36,6 +36,11 @@ export default async function DashboardPage() {
     return acc;
   }, {});
 
+  const { data: appointmentsForContinent } = await supabase
+    .from('appointments')
+    .select('start_at, continent')
+    .order('start_at', { ascending: true });
+
   return (
     <DashboardClient
       totalAppointments={totalAppointments ?? 0}
@@ -43,6 +48,7 @@ export default async function DashboardPage() {
       totalPatients={totalPatients ?? 0}
       statusCounts={statusCounts}
       diseaseCounts={diseaseCounts}
+      appointmentsForContinent={appointmentsForContinent ?? []}
     />
   );
 }

@@ -43,6 +43,18 @@ function getInitialLocale(): Locale {
   return 'en';
 }
 
+function defaultT(key: string): string {
+  const obj = translations.en as Record<string, unknown>;
+  const value = getNested(obj, key);
+  return value ?? key;
+}
+
+const defaultContextValue: I18nContextType = {
+  locale: 'en',
+  setLocale: () => {},
+  t: defaultT,
+};
+
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en');
   const [mounted, setMounted] = useState(false);
@@ -66,10 +78,12 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     [locale]
   );
 
-  if (!mounted) return <>{children}</>;
+  const value: I18nContextType = mounted
+    ? { locale, setLocale, t }
+    : defaultContextValue;
 
   return (
-    <I18nContext.Provider value={{ locale, setLocale, t }}>
+    <I18nContext.Provider value={value}>
       {children}
     </I18nContext.Provider>
   );

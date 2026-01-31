@@ -24,7 +24,9 @@ export default function DoctorsClient({
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
-    const payload = { ...form, clinic_id: form.clinic_id || undefined };
+    const clinicId = form.clinic_id || editing?.clinic_id || clinics[0]?.id;
+    if (!clinicId) return;
+    const payload = { name: form.name, contact: form.contact, specialty: form.specialty, clinic_id: clinicId };
     if (editing) {
       const { error } = await supabase.from('doctors').update(payload).eq('id', editing.id);
       if (!error) {

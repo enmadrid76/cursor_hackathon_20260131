@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { useI18n } from '@/lib/i18n';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 type AppointmentRow = {
   id: string;
@@ -15,6 +15,24 @@ type AppointmentRow = {
   continent: string | null;
   status: string;
 };
+
+const CHART_COLORS = [
+  '#1e40af', '#3b82f6', '#60a5fa', '#93c5fd',
+  '#374151', '#6b7280', '#9ca3af', '#d1d5db',
+];
+
+function formatMonth(isoDate: string): string {
+  const d = new Date(isoDate);
+  const y = d.getFullYear();
+  const m = d.getMonth();
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return `${months[m]} ${y}`;
+}
+
+function monthKey(isoDate: string): string {
+  const d = new Date(isoDate);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
 
 export default function ReportsClient({ initialAppointments }: { initialAppointments: AppointmentRow[] }) {
   const [dateFrom, setDateFrom] = useState('');
@@ -35,31 +53,109 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     return list;
   }, [initialAppointments, dateFrom, dateTo]);
 
-  const byDisease = useMemo(() => {
-    const map: Record<string, number> = {};
+  const byDiseaseByMonth = useMemo(() => {
+    const monthOrder: string[] = [];
+    const monthSet = new Set<string>();
     filtered.forEach((a) => {
+      const key = monthKey(a.start_at);
+      if (!monthSet.has(key)) {
+        monthSet.add(key);
+        monthOrder.push(key);
+      }
+    });
+    monthOrder.sort();
+    const diseases = new Set<string>();
+    filtered.forEach((a) => diseases.add(a.disease_name ?? 'Unknown'));
+    const diseaseList = Array.from(diseases).sort();
+    const byMonth: Record<string, Record<string, number>> = {};
+    monthOrder.forEach((key) => {
+      byMonth[key] = { month: formatMonth(key + '-01') };
+      diseaseList.forEach((d) => { byMonth[key][d] = 0; });
+    });
+    filtered.forEach((a) => {
+      const key = monthKey(a.start_at);
       const name = a.disease_name ?? 'Unknown';
-      map[name] = (map[name] ?? 0) + 1;
+      if (byMonth[key] && byMonth[key][name] !== undefined) byMonth[key][name] += 1;
     });
-    return Object.entries(map).map(([name, value]) => ({ name, value }));
+    return monthOrder.map((key) => byMonth[key]);
   }, [filtered]);
 
-  const byContinent = useMemo(() => {
-    const map: Record<string, number> = {};
+  const byContinentByMonth = useMemo(() => {
+    const monthOrder: string[] = [];
+    const monthSet = new Set<string>();
     filtered.forEach((a) => {
-      const name = a.continent ?? 'Unknown';
-      map[name] = (map[name] ?? 0) + 1;
+      const key = monthKey(a.start_at);
+      if (!monthSet.has(key)) {
+        monthSet.add(key);
+        monthOrder.push(key);
+      }
     });
-    return Object.entries(map).map(([name, value]) => ({ name, value }));
+    monthOrder.sort();
+    const continents = new Set<string>();
+    filtered.forEach((a) => continents.add(a.continent ?? 'Unknown'));
+    const continentList = Array.from(continents).sort();
+    const byMonth: Record<string, Record<string, number>> = {};
+    monthOrder.forEach((key) => {
+      byMonth[key] = { month: formatMonth(key + '-01') };
+      continentList.forEach((c) => { byMonth[key][c] = 0; });
+    });
+    filtered.forEach((a) => {
+      const key = monthKey(a.start_at);
+      const name = a.continent ?? 'Unknown';
+      if (byMonth[key] && byMonth[key][name] !== undefined) byMonth[key][name] += 1;
+    });
+    return monthOrder.map((key) => byMonth[key]);
   }, [filtered]);
 
-  const byCountry = useMemo(() => {
-    const map: Record<string, number> = {};
+  const diseaseKeys = useMemo(() => {
+    const set = new Set<string>();
+    filtered.forEach((a) => set.add(a.disease_name ?? 'Unknown'));
+    return Array.from(set).sort();
+  }, [filtered]);
+
+  const continentKeys = useMemo(() => {
+    const set = new Set<string>();
+    filtered.forEach((a) => set.add(a.continent ?? 'Unknown'));
+    return Array.from(set).sort();
+  }, [filtered]);
+
+  const TOP_COUNTRY_COUNT = 5;
+
+  const { byCountryByMonth, countryKeys: countryChartKeys } = useMemo(() => {
+    const monthOrder: string[] = [];
+    const monthSet = new Set<string>();
+    filtered.forEach((a) => {
+      const key = monthKey(a.start_at);
+      if (!monthSet.has(key)) {
+        monthSet.add(key);
+        monthOrder.push(key);
+      }
+    });
+    monthOrder.sort();
+    const countryTotals: Record<string, number> = {};
     filtered.forEach((a) => {
       const name = a.country ?? 'Unknown';
-      map[name] = (map[name] ?? 0) + 1;
+      countryTotals[name] = (countryTotals[name] ?? 0) + 1;
     });
-    return Object.entries(map).map(([name, value]) => ({ name, value }));
+    const sortedCountries = Object.entries(countryTotals)
+      .sort(([, a], [, b]) => b - a)
+      .map(([c]) => c);
+    const top5 = sortedCountries.slice(0, TOP_COUNTRY_COUNT);
+    const otherLabel = 'Other';
+    const countryKeys = [...top5, otherLabel];
+    const byMonth: Record<string, Record<string, number>> = {};
+    monthOrder.forEach((key) => {
+      byMonth[key] = { month: formatMonth(key + '-01') };
+      countryKeys.forEach((c) => { byMonth[key][c] = 0; });
+    });
+    filtered.forEach((a) => {
+      const key = monthKey(a.start_at);
+      const name = a.country ?? 'Unknown';
+      const barKey = top5.includes(name) ? name : otherLabel;
+      if (byMonth[key] && byMonth[key][barKey] !== undefined) byMonth[key][barKey] += 1;
+    });
+    const data = monthOrder.map((key) => byMonth[key]);
+    return { byCountryByMonth: data, countryKeys };
   }, [filtered]);
 
   function exportCsv() {
@@ -75,6 +171,23 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     a.download = `mederp-report-${dateFrom || 'all'}-${dateTo || 'all'}.csv`;
     a.click();
     URL.revokeObjectURL(url);
+  }
+
+  function renderStackedBars(keys: string[], stackId: string) {
+    return keys.map((key, i) => (
+      <Bar key={key} dataKey={key} stackId={stackId} fill={CHART_COLORS[i % CHART_COLORS.length]} name={key} />
+    ));
+  }
+
+  function renderGroupedBars(keys: string[], otherLabel?: string) {
+    return keys.map((key, i) => (
+      <Bar
+        key={key}
+        dataKey={key}
+        fill={CHART_COLORS[i % CHART_COLORS.length]}
+        name={key === 'Other' && otherLabel != null ? otherLabel : key}
+      />
+    ));
   }
 
   return (
@@ -103,17 +216,18 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
           {t('reports.exportCsv')}
         </button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 gap-8 mb-8">
         <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700">
-          <h2 className="text-lg font-semibold mb-4">{t('reports.byDisease')}</h2>
-          {byDisease.length > 0 ? (
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={byDisease}>
+          <h2 className="text-lg font-semibold mb-4">{t('reports.byDiseaseByMonth')}</h2>
+          {byDiseaseByMonth.length > 0 && diseaseKeys.length > 0 ? (
+            <ResponsiveContainer width="100%" height={280}>
+              <BarChart data={byDiseaseByMonth} margin={{ top: 8, right: 8, left: 8, bottom: 8 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="value" fill="#3b82f6" />
+                <Legend />
+                {renderStackedBars(diseaseKeys, 'disease')}
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -121,44 +235,44 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
           )}
         </div>
         <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700">
-          <h2 className="text-lg font-semibold mb-4">{t('reports.byGeography')} (continent)</h2>
-          {byContinent.length > 0 ? (
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={byContinent}>
+          <h2 className="text-lg font-semibold mb-4">{t('reports.byContinentByMonth')}</h2>
+          {byContinentByMonth.length > 0 && continentKeys.length > 0 ? (
+            <ResponsiveContainer width="100%" height={280}>
+              <BarChart data={byContinentByMonth} margin={{ top: 8, right: 8, left: 8, bottom: 8 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="value" fill="#10b981" />
+                <Legend />
+                {renderGroupedBars(continentKeys)}
               </BarChart>
             </ResponsiveContainer>
           ) : (
             <p className="text-gray-500">{t('common.noData')}</p>
           )}
         </div>
-      </div>
-      <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700 overflow-x-auto">
-        <h2 className="text-lg font-semibold mb-4">{t('reports.byGeography')} (country)</h2>
-        {byCountry.length > 0 ? (
-          <table className="w-full border dark:border-gray-700">
-            <thead>
-              <tr className="bg-gray-100 dark:bg-gray-800">
-                <th className="p-2 text-left">Country</th>
-                <th className="p-2 text-left">Count</th>
-              </tr>
-            </thead>
-            <tbody>
-              {byCountry.map(({ name, value }) => (
-                <tr key={name} className="border-t dark:border-gray-700">
-                  <td className="p-2">{name}</td>
-                  <td className="p-2">{value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p className="text-gray-500">{t('common.noData')}</p>
-        )}
+        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700">
+          <h2 className="text-lg font-semibold mb-4">{t('reports.byCountryByMonth')}</h2>
+          {byCountryByMonth.length > 0 && countryChartKeys.length > 0 ? (
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart
+                data={byCountryByMonth}
+                margin={{ top: 8, right: 8, left: 8, bottom: 8 }}
+                barGap={0}
+                barCategoryGap="15%"
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {renderGroupedBars(countryChartKeys, t('reports.other'))}
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <p className="text-gray-500">{t('common.noData')}</p>
+          )}
+        </div>
       </div>
     </div>
   );

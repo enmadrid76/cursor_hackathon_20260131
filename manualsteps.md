@@ -37,6 +37,16 @@ This document lists **manual steps** you need to perform to set up hosting, data
 6. **Enable Email authentication**
    - Go to **Authentication** → **Providers**.
    - Ensure **Email** is enabled (default). Configure email templates if desired.
+   - **Login says "Invalid email or password" after signup:** Supabase requires email confirmation by default. Either have the user confirm via the link in their email, or turn off "Confirm email" under **Authentication** → **Providers** → **Email** so new users can log in immediately.
+   - **If signup fails:** The signup page now shows Supabase’s real error message. Common fixes:
+     - **Confirm email:** If "Confirm email" is on, users must confirm before logging in. To allow signup without confirmation (e.g. for local dev), go to **Authentication** → **Providers** → **Email** and turn off "Confirm email", or use **Authentication** → **Users** → **Add user** to create a user manually.
+     - **Password:** Supabase may require a minimum length (e.g. 6 characters); use a longer password if the error mentions password.
+     - **Rate limit:** If you see a rate-limit error, wait a minute or create the user from **Authentication** → **Users** → **Add user** instead.
+
+7. **Load test data (for reporting/analytics demo)**
+   - To **replace all data** and load the expanded test set: run **supabase/clear-test-data.sql** first (deletes appointments, doctors, patients, clinics in that order), then run **supabase/seed-test-data.sql**.
+   - The expanded **docs/test-data-sets.json** has at least 25 records per month per country/disease/continent: Jan 2025 COVID Asia (100), Feb 2025 Ebola Africa (50), Mar–Sep 2025 COVID worldwide with **increasing COVID cases per month** (25 → 32 → 40 → 48 → 56 → 64 → 72) to reflect higher virality. Total 487 appointments.
+   - To regenerate the JSON and seed SQL: run `node scripts/generate-expanded-test-data.js` then `node scripts/generate-seed-sql.js`.
 
 ---
 
