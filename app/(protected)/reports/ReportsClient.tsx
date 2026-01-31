@@ -67,7 +67,8 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     const diseases = new Set<string>();
     filtered.forEach((a) => diseases.add(a.disease_name ?? 'Unknown'));
     const diseaseList = Array.from(diseases).sort();
-    const byMonth: Record<string, Record<string, number>> = {};
+    type MonthRow = { month: string } & Record<string, number>;
+    const byMonth: Record<string, MonthRow> = {};
     monthOrder.forEach((key) => {
       byMonth[key] = { month: formatMonth(key + '-01') };
       diseaseList.forEach((d) => { byMonth[key][d] = 0; });
@@ -94,7 +95,8 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     const continents = new Set<string>();
     filtered.forEach((a) => continents.add(a.continent ?? 'Unknown'));
     const continentList = Array.from(continents).sort();
-    const byMonth: Record<string, Record<string, number>> = {};
+    type MonthRow = { month: string } & Record<string, number>;
+    const byMonth: Record<string, MonthRow> = {};
     monthOrder.forEach((key) => {
       byMonth[key] = { month: formatMonth(key + '-01') };
       continentList.forEach((c) => { byMonth[key][c] = 0; });
@@ -143,7 +145,8 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     const top5 = sortedCountries.slice(0, TOP_COUNTRY_COUNT);
     const otherLabel = 'Other';
     const countryKeys = [...top5, otherLabel];
-    const byMonth: Record<string, Record<string, number>> = {};
+    type MonthRow = { month: string } & Record<string, number>;
+    const byMonth: Record<string, MonthRow> = {};
     monthOrder.forEach((key) => {
       byMonth[key] = { month: formatMonth(key + '-01') };
       countryKeys.forEach((c) => { byMonth[key][c] = 0; });
