@@ -1,0 +1,108 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "clinics": "Clínicas",
+    "doctors": "Médicos",
+    "patients": "Pacientes",
+    "appointments": "Citas",
+    "reports": "Informes",
+    "logout": "Cerrar sesión"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Añadir",
+    "search": "Buscar",
+    "loading": "Cargando...",
+    "noData": "Sin datos"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "email": "Correo",
+    "password": "Contraseña",
+    "signIn": "Entrar",
+    "signOut": "Salir",
+    "error": "Correo o contraseña incorrectos"
+  },
+  "clinics": {
+    "title": "Clínicas",
+    "name": "Nombre",
+    "address": "Dirección",
+    "contact": "Contacto",
+    "timezone": "Zona horaria",
+    "active": "Activo",
+    "addClinic": "Añadir clínica",
+    "editClinic": "Editar clínica"
+  },
+  "doctors": {
+    "title": "Médicos",
+    "name": "Nombre",
+    "contact": "Contacto",
+    "specialty": "Especialidad",
+    "clinic": "Clínica",
+    "addDoctor": "Añadir médico",
+    "editDoctor": "Editar médico"
+  },
+  "patients": {
+    "title": "Pacientes",
+    "name": "Nombre",
+    "contact": "Contacto",
+    "dateOfBirth": "Fecha de nacimiento",
+    "medicalId": "ID médico",
+    "addPatient": "Añadir paciente",
+    "editPatient": "Editar paciente"
+  },
+  "appointments": {
+    "title": "Citas",
+    "start": "Inicio",
+    "duration": "Duración (min)",
+    "status": "Estado",
+    "clinic": "Clínica",
+    "doctor": "Médico",
+    "patient": "Paciente",
+    "diseaseName": "Enfermedad",
+    "viralityRate": "Tasa de contagio (0–10)",
+    "patientAgeAtVisit": "Edad del paciente en la visita",
+    "avgMonthlyCityTemp": "Temp. media mensual (ciudad)",
+    "country": "País",
+    "continent": "Continente",
+    "notes": "Notas",
+    "addAppointment": "Añadir cita",
+    "editAppointment": "Editar cita",
+    "status_scheduled": "Programada",
+    "status_completed": "Completada",
+    "status_cancelled": "Cancelada",
+    "status_no_show": "No presentado"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "totalAppointments": "Total citas",
+    "appointmentsThisMonth": "Citas este mes",
+    "totalPatients": "Total pacientes",
+    "byStatus": "Por estado",
+    "byDisease": "Por enfermedad"
+  },
+  "reports": {
+    "title": "Informes",
+    "byDisease": "Por enfermedad",
+    "byGeography": "Por geografía",
+    "byAge": "Por edad",
+    "byTemperature": "Por temperatura",
+    "byVirality": "Por contagio",
+    "dateRange": "Período",
+    "exportCsv": "Exportar CSV"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "tempUnit": "Unidad de temperatura",
+    "celsius": "Celsius (°C)",
+    "fahrenheit": "Fahrenheit (°F)"
+  },
+  "language": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  }
+}

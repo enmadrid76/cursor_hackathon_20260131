@@ -1,0 +1,108 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "clinics": "Clinics",
+    "doctors": "Doctors",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "reports": "Reports",
+    "logout": "Log out"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "loading": "Loading...",
+    "noData": "No data"
+  },
+  "auth": {
+    "login": "Log in",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "error": "Invalid email or password"
+  },
+  "clinics": {
+    "title": "Clinics",
+    "name": "Name",
+    "address": "Address",
+    "contact": "Contact",
+    "timezone": "Timezone",
+    "active": "Active",
+    "addClinic": "Add clinic",
+    "editClinic": "Edit clinic"
+  },
+  "doctors": {
+    "title": "Doctors",
+    "name": "Name",
+    "contact": "Contact",
+    "specialty": "Specialty",
+    "clinic": "Clinic",
+    "addDoctor": "Add doctor",
+    "editDoctor": "Edit doctor"
+  },
+  "patients": {
+    "title": "Patients",
+    "name": "Name",
+    "contact": "Contact",
+    "dateOfBirth": "Date of birth",
+    "medicalId": "Medical ID",
+    "addPatient": "Add patient",
+    "editPatient": "Edit patient"
+  },
+  "appointments": {
+    "title": "Appointments",
+    "start": "Start",
+    "duration": "Duration (min)",
+    "status": "Status",
+    "clinic": "Clinic",
+    "doctor": "Doctor",
+    "patient": "Patient",
+    "diseaseName": "Disease name",
+    "viralityRate": "Virality / contagion rate (0–10)",
+    "patientAgeAtVisit": "Patient age at visit",
+    "avgMonthlyCityTemp": "Avg. monthly city temp",
+    "country": "Country",
+    "continent": "Continent",
+    "notes": "Notes",
+    "addAppointment": "Add appointment",
+    "editAppointment": "Edit appointment",
+    "status_scheduled": "Scheduled",
+    "status_completed": "Completed",
+    "status_cancelled": "Cancelled",
+    "status_no_show": "No show"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "totalAppointments": "Total appointments",
+    "appointmentsThisMonth": "Appointments this month",
+    "totalPatients": "Total patients",
+    "byStatus": "By status",
+    "byDisease": "By disease"
+  },
+  "reports": {
+    "title": "Reports",
+    "byDisease": "By disease",
+    "byGeography": "By geography",
+    "byAge": "By age",
+    "byTemperature": "By temperature",
+    "byVirality": "By virality",
+    "dateRange": "Date range",
+    "exportCsv": "Export CSV"
+  },
+  "settings": {
+    "title": "Settings",
+    "tempUnit": "Temperature unit",
+    "celsius": "Celsius (°C)",
+    "fahrenheit": "Fahrenheit (°F)"
+  },
+  "language": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  }
+}

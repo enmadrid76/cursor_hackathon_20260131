@@ -1,0 +1,108 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "clinics": "Cliniques",
+    "doctors": "Médecins",
+    "patients": "Patients",
+    "appointments": "Rendez-vous",
+    "reports": "Rapports",
+    "logout": "Déconnexion"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "search": "Rechercher",
+    "loading": "Chargement...",
+    "noData": "Aucune donnée"
+  },
+  "auth": {
+    "login": "Connexion",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "signIn": "Se connecter",
+    "signOut": "Déconnexion",
+    "error": "E-mail ou mot de passe incorrect"
+  },
+  "clinics": {
+    "title": "Cliniques",
+    "name": "Nom",
+    "address": "Adresse",
+    "contact": "Contact",
+    "timezone": "Fuseau horaire",
+    "active": "Actif",
+    "addClinic": "Ajouter une clinique",
+    "editClinic": "Modifier la clinique"
+  },
+  "doctors": {
+    "title": "Médecins",
+    "name": "Nom",
+    "contact": "Contact",
+    "specialty": "Spécialité",
+    "clinic": "Clinique",
+    "addDoctor": "Ajouter un médecin",
+    "editDoctor": "Modifier le médecin"
+  },
+  "patients": {
+    "title": "Patients",
+    "name": "Nom",
+    "contact": "Contact",
+    "dateOfBirth": "Date de naissance",
+    "medicalId": "N° médical",
+    "addPatient": "Ajouter un patient",
+    "editPatient": "Modifier le patient"
+  },
+  "appointments": {
+    "title": "Rendez-vous",
+    "start": "Début",
+    "duration": "Durée (min)",
+    "status": "Statut",
+    "clinic": "Clinique",
+    "doctor": "Médecin",
+    "patient": "Patient",
+    "diseaseName": "Maladie",
+    "viralityRate": "Taux de contagion (0–10)",
+    "patientAgeAtVisit": "Âge du patient à la visite",
+    "avgMonthlyCityTemp": "Temp. mensuelle moyenne (ville)",
+    "country": "Pays",
+    "continent": "Continent",
+    "notes": "Notes",
+    "addAppointment": "Ajouter un rendez-vous",
+    "editAppointment": "Modifier le rendez-vous",
+    "status_scheduled": "Planifié",
+    "status_completed": "Terminé",
+    "status_cancelled": "Annulé",
+    "status_no_show": "Absent"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "totalAppointments": "Total rendez-vous",
+    "appointmentsThisMonth": "Rendez-vous ce mois",
+    "totalPatients": "Total patients",
+    "byStatus": "Par statut",
+    "byDisease": "Par maladie"
+  },
+  "reports": {
+    "title": "Rapports",
+    "byDisease": "Par maladie",
+    "byGeography": "Par géographie",
+    "byAge": "Par âge",
+    "byTemperature": "Par température",
+    "byVirality": "Par contagion",
+    "dateRange": "Période",
+    "exportCsv": "Exporter CSV"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "tempUnit": "Unité de température",
+    "celsius": "Celsius (°C)",
+    "fahrenheit": "Fahrenheit (°F)"
+  },
+  "language": {
+    "en": "English",
+    "fr": "Français",
+    "es": "Español"
+  }
+}
