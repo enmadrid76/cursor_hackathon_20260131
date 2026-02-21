@@ -67,7 +67,7 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     const diseases = new Set<string>();
     filtered.forEach((a) => diseases.add(a.disease_name ?? 'Unknown'));
     const diseaseList = Array.from(diseases).sort();
-    type MonthRow = { month: string } & Record<string, number>;
+    type MonthRow = { month: string; [key: string]: string | number };
     const byMonth: Record<string, MonthRow> = {};
     monthOrder.forEach((key) => {
       byMonth[key] = { month: formatMonth(key + '-01') };
@@ -76,7 +76,9 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     filtered.forEach((a) => {
       const key = monthKey(a.start_at);
       const name = a.disease_name ?? 'Unknown';
-      if (byMonth[key] && byMonth[key][name] !== undefined) byMonth[key][name] += 1;
+      if (byMonth[key] && typeof byMonth[key][name] === 'number') {
+        (byMonth[key][name] as number) += 1;
+      }
     });
     return monthOrder.map((key) => byMonth[key]);
   }, [filtered]);
@@ -95,7 +97,7 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     const continents = new Set<string>();
     filtered.forEach((a) => continents.add(a.continent ?? 'Unknown'));
     const continentList = Array.from(continents).sort();
-    type MonthRow = { month: string } & Record<string, number>;
+    type MonthRow = { month: string; [key: string]: string | number };
     const byMonth: Record<string, MonthRow> = {};
     monthOrder.forEach((key) => {
       byMonth[key] = { month: formatMonth(key + '-01') };
@@ -104,7 +106,9 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     filtered.forEach((a) => {
       const key = monthKey(a.start_at);
       const name = a.continent ?? 'Unknown';
-      if (byMonth[key] && byMonth[key][name] !== undefined) byMonth[key][name] += 1;
+      if (byMonth[key] && typeof byMonth[key][name] === 'number') {
+        (byMonth[key][name] as number) += 1;
+      }
     });
     return monthOrder.map((key) => byMonth[key]);
   }, [filtered]);
@@ -145,7 +149,7 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
     const top5 = sortedCountries.slice(0, TOP_COUNTRY_COUNT);
     const otherLabel = 'Other';
     const countryKeys = [...top5, otherLabel];
-    type MonthRow = { month: string } & Record<string, number>;
+    type MonthRow = { month: string; [key: string]: string | number };
     const byMonth: Record<string, MonthRow> = {};
     monthOrder.forEach((key) => {
       byMonth[key] = { month: formatMonth(key + '-01') };
@@ -155,7 +159,9 @@ export default function ReportsClient({ initialAppointments }: { initialAppointm
       const key = monthKey(a.start_at);
       const name = a.country ?? 'Unknown';
       const barKey = top5.includes(name) ? name : otherLabel;
-      if (byMonth[key] && byMonth[key][barKey] !== undefined) byMonth[key][barKey] += 1;
+      if (byMonth[key] && typeof byMonth[key][barKey] === 'number') {
+        (byMonth[key][barKey] as number) += 1;
+      }
     });
     const data = monthOrder.map((key) => byMonth[key]);
     return { byCountryByMonth: data, countryKeys };
